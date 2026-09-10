@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings · AI Cyber Threat Detection System</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="settings-page">
+
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-logo">🛡️</div>
+        <div class="sidebar-brand-text">
+            <div class="brand">CyberSentinel AI</div>
+            <div class="subtitle">Threat Detection System</div>
+        </div>
+    </div>
+    <nav class="sidebar-nav">
+        <a class="nav-link" data-page="index.html" href="index.html"><span class="ico">▦</span>Dashboard</a>
+        <a class="nav-link" data-page="scanner.html" href="scanner.html"><span class="ico">⌕</span>Scanner</a>
+        <a class="nav-link" data-page="monitor.html" href="monitor.html"><span class="ico">📡</span>Monitor</a>
+        <a class="nav-link" data-page="reports.html" href="reports.html"><span class="ico">▤</span>Reports</a>
+        <a class="nav-link" data-page="settings.html" href="settings.html"><span class="ico">⚙</span>Settings</a>
+    </nav>
+    <div class="sidebar-footer">
+        <a class="btn-scan" href="scanner.html" style="display:block; text-align:center;">▷ New Scan</a>
+    </div>
+</aside>
+
+<div class="main-container">
+    <header class="topbar">
+        <div class="status-pill" id="status-pill"><span class="status-dot" id="status-dot"></span><span id="status-label">Checking backend...</span></div>
+        <div style="flex:1"></div>
+        <div class="header-actions">
+            <button class="icon-btn">🔔</button>
+            <div class="avatar">AD</div>
+        </div>
+    </header>
+
+    <div class="page-canvas">
+        <div class="page-header">
+            <div>
+                <h1>Settings &amp; System Status</h1>
+                <p>Live status of every backend integration. No secret values are ever shown here or sent to the frontend.</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header"><div class="card-title">🩺 Connection Status</div></div>
+            <div class="card-body" id="settings-status-body">
+                <div class="loading-text"><span class="spinner"></span>Checking backend...</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header"><div class="card-title">📘 Configuration Guide</div></div>
+            <div class="card-body">
+                <p style="margin-bottom:12px;">To enable each integration, set the corresponding variable in <code>backend/.env</code> (never in frontend code) and restart the backend:</p>
+                <ul style="padding-left:20px; display:flex; flex-direction:column; gap:8px; font-size:13px;">
+                    <li><strong>Google Sheets (required):</strong> <code>GOOGLE_APPS_SCRIPT_URL</code> — see <code>google-apps-script/Code.gs</code> setup instructions in the README.</li>
+                    <li><strong>Text &amp; Email Scanners (optional):</strong> <code>GEMINI_API_KEY</code> — without it, these scans use LOCAL DEMO MODE.</li>
+                    <li><strong>URL &amp; File Scanners (optional):</strong> <code>VIRUSTOTAL_API_KEY</code> — without it, these scans use LOCAL DEMO MODE.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const body = document.getElementById('settings-status-body');
+  function chip(ok, textOk, textBad) {
+    return `<span class="status-chip ${ok ? 'ok' : 'bad'}">${ok ? textOk : textBad}</span>`;
+  }
+  try {
+    const res = await CTD.apiFetch('/health');
+    const d = res.data;
+    body.innerHTML = `
+      <div class="status-row"><span class="label">Backend Server</span>${chip(true, 'ONLINE', 'OFFLINE')}</div>
+      <div class="status-row"><span class="label">Google Sheets Database</span>${chip(d.sheetsConfigured, 'CONNECTED', 'NOT CONFIGURED')}</div>
+      <div class="status-row"><span class="label">Google Gemini AI (Text &amp; Email scans)</span>${chip(d.geminiConfigured, 'CONFIGURED', 'LOCAL DEMO MODE')}</div>
+      <div class="status-row"><span class="label">VirusTotal API (URL &amp; File scans)</span>${chip(d.virusTotalConfigured, 'CONFIGURED', 'LOCAL DEMO MODE')}</div>
+      <div class="status-row"><span class="label">Application Version</span><span style="font-family:var(--font-mono); font-size:12px;">${CTD.escapeHtml(d.version)}</span></div>
+      <div class="status-row"><span class="label">Server Time</span><span style="font-family:var(--font-mono); font-size:12px;">${new Date(d.timestamp).toLocaleString()}</span></div>
+    `;
+  } catch (err) {
+    body.innerHTML = `
+      <div class="status-row"><span class="label">Backend Server</span><span class="status-chip bad">OFFLINE</span></div>
+      <p style="margin-top:12px; color:var(--accent-red); font-size:13px;">${CTD.escapeHtml(err.message)}</p>
+    `;
+  }
+});
+</script>
+</body>
+</html>

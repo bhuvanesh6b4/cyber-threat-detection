@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monitor · AI Cyber Threat Detection System</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-logo">🛡️</div>
+        <div class="sidebar-brand-text">
+            <div class="brand">CyberSentinel AI</div>
+            <div class="subtitle">Threat Detection System</div>
+        </div>
+    </div>
+    <nav class="sidebar-nav">
+        <a class="nav-link" data-page="index.html" href="index.html"><span class="ico">▦</span>Dashboard</a>
+        <a class="nav-link" data-page="scanner.html" href="scanner.html"><span class="ico">⌕</span>Scanner</a>
+        <a class="nav-link" data-page="monitor.html" href="monitor.html"><span class="ico">📡</span>Monitor</a>
+        <a class="nav-link" data-page="reports.html" href="reports.html"><span class="ico">▤</span>Reports</a>
+        <a class="nav-link" data-page="settings.html" href="settings.html"><span class="ico">⚙</span>Settings</a>
+    </nav>
+    <div class="sidebar-footer">
+        <a class="btn-scan" href="scanner.html" style="display:block; text-align:center;">▷ New Scan</a>
+    </div>
+</aside>
+
+<div class="main-container">
+    <header class="topbar">
+        <div class="status-pill" id="status-pill"><span class="status-dot" id="status-dot"></span><span id="status-label">Checking backend...</span></div>
+        <div style="flex:1"></div>
+        <div class="header-actions">
+            <button class="icon-btn">🔔</button>
+            <div class="avatar">AD</div>
+        </div>
+    </header>
+
+    <div class="page-canvas">
+        <div class="page-header">
+            <div>
+                <h1>Live Monitoring</h1>
+                <p>Auto-refreshes every 20 seconds from GET /api/stats. Nothing here is hard-coded.</p>
+            </div>
+        </div>
+
+        <div class="stat-grid" id="monitor-stat-grid">
+            <div class="stat-card"><div class="stat-label">Total Scans</div><div class="stat-value" id="m-total">—</div></div>
+            <div class="stat-card"><div class="stat-label">Safe</div><div class="stat-value green" id="m-safe">—</div></div>
+            <div class="stat-card"><div class="stat-label">Suspicious</div><div class="stat-value" id="m-suspicious">—</div></div>
+            <div class="stat-card"><div class="stat-label">Malicious</div><div class="stat-value red" id="m-malicious">—</div></div>
+            <div class="stat-card highlight-red"><div class="stat-label">Critical</div><div class="stat-value red" id="m-critical">—</div></div>
+        </div>
+
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-header"><div class="card-title">📈 Threats Over Time</div></div>
+                <div class="card-body"><canvas id="trend-chart" height="220"></canvas></div>
+            </div>
+            <div class="card">
+                <div class="card-header"><div class="card-title">◎ Threat Types</div></div>
+                <div class="card-body"><canvas id="type-chart" height="220"></canvas></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header"><div class="card-title">🔴 Recent Activity</div></div>
+            <div class="card-body no-pad">
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Time</th><th>Type</th><th>Result</th><th>Score</th></tr></thead>
+                        <tbody id="activity-body">
+                            <tr class="empty-row"><td colspan="4"><span class="loading-text"><span class="spinner"></span>Loading activity...</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script src="js/monitor.js"></script>
+</body>
+</html>

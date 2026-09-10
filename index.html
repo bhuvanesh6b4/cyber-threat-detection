@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard · AI Cyber Threat Detection System</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-logo">🛡️</div>
+        <div class="sidebar-brand-text">
+            <div class="brand">CyberSentinel AI</div>
+            <div class="subtitle">Threat Detection System</div>
+        </div>
+    </div>
+    <nav class="sidebar-nav">
+        <a class="nav-link" data-page="index.html" href="index.html"><span class="ico">▦</span>Dashboard</a>
+        <a class="nav-link" data-page="scanner.html" href="scanner.html"><span class="ico">⌕</span>Scanner</a>
+        <a class="nav-link" data-page="monitor.html" href="monitor.html"><span class="ico">📡</span>Monitor</a>
+        <a class="nav-link" data-page="reports.html" href="reports.html"><span class="ico">▤</span>Reports</a>
+        <a class="nav-link" data-page="settings.html" href="settings.html"><span class="ico">⚙</span>Settings</a>
+    </nav>
+    <div class="sidebar-footer">
+        <a class="btn-scan" href="scanner.html" style="display:block; text-align:center;">▷ New Scan</a>
+    </div>
+</aside>
+
+<div class="main-container">
+    <header class="topbar">
+        <div class="status-pill" id="status-pill"><span class="status-dot" id="status-dot"></span><span id="status-label">Checking backend...</span></div>
+        <div style="flex:1"></div>
+        <div class="header-actions">
+            <button class="icon-btn">🔔</button>
+            <div class="avatar">AD</div>
+        </div>
+    </header>
+
+    <div class="page-canvas">
+        <div class="page-header">
+            <div>
+                <h1>Security Overview</h1>
+                <p>Real scan data pulled live from your Google Sheets-backed API. No numbers on this page are hard-coded.</p>
+            </div>
+        </div>
+
+        <div class="stat-grid" id="stat-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Scans</div>
+                <div class="stat-value" id="stat-total">—</div>
+            </div>
+            <div class="stat-card highlight-cyan">
+                <div class="stat-label">Threats Detected</div>
+                <div class="stat-value red" id="stat-threats">—</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Safe Scans</div>
+                <div class="stat-value green" id="stat-safe">—</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Suspicious</div>
+                <div class="stat-value" id="stat-suspicious">—</div>
+            </div>
+            <div class="stat-card highlight-red">
+                <div class="stat-label">Critical Threats</div>
+                <div class="stat-value red" id="stat-critical">—</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Detection Rate</div>
+                <div class="stat-value" id="stat-rate">—</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Recent Scans</div>
+                <a class="icon-btn" href="reports.html">VIEW ALL →</a>
+            </div>
+            <div class="card-body no-pad">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr><th>Input</th><th>Threat Type</th><th>Status</th><th>Score</th><th>Time</th></tr>
+                        </thead>
+                        <tbody id="recent-scans-body">
+                            <tr class="empty-row"><td colspan="5"><span class="loading-text"><span class="spinner"></span>Loading dashboard...</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
