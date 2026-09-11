@@ -11,7 +11,7 @@
   const LOCAL_DEFAULT = 'http://localhost:5000/api';
 
   // ---- EDIT THIS LINE FOR PRODUCTION ----
-  const API_BASE_URL = LOCAL_DEFAULT;
+  const API_BASE_URL = 'https://cyber-threat-detection-6u6x.onrender.com';
   // ----------------------------------------
 
   // Optional override for quick testing without editing this file:
