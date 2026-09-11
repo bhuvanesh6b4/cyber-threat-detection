@@ -8,7 +8,7 @@
  * deployed backend's URL, e.g. "https://your-app.onrender.com/api"
  */
 (function () {
-  const LOCAL_DEFAULT = 'http://localhost:5000/api';
+  const LOCAL_DEFAULT = 'https://cyber-threat-detection-6u6x.onrender.com/';
 
   // ---- EDIT THIS LINE FOR PRODUCTION ----
   const API_BASE_URL = 'https://cyber-threat-detection-6u6x.onrender.com/';
