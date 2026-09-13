@@ -8,7 +8,7 @@
  * (e.g. Render/Railway). For local development the default is correct.
  */
 const CTD = (() => {
-  const API_BASE = window.CTD_API_BASE || 'https://cyber-threat-detection-6u6x.onrender.com/';
+  const API_BASE = window.CTD_API_BASE || 'https://cyber-threat-detection-6u6x.onrender.com/api';
 
   function toast(message, type = 'info') {
     let container = document.getElementById('toast-container');
